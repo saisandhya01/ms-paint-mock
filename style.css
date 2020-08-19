@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  border: 1px solid black;
+}
+.buttons {
+  position: absolute;
+  top: 30%;
+  right: 10%;
+  border: 1px solid black;
+}
