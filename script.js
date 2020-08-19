@@ -5,7 +5,8 @@ canvas.height = window.innerHeight;
 
 let eraseButton = document.getElementById("erase-button");
 let colorInput = document.getElementById("color");
-let shapeButton = document.getElementById("rectangle");
+let shapeButtonRectangle = document.getElementById("rectangle");
+let shapeButtonEllipse = document.getElementById("ellipse");
 
 let shape = false;
 let Drawing = false;
@@ -19,9 +20,12 @@ eraseButton.onclick = () => {
 colorInput.onchange = () => {
   color = colorInput.value;
 };
-shapeButton.onclick = () => {
-  shape = true;
+shapeButtonRectangle.onclick = () => {
+  shape = "rectangle";
   console.log(shape);
+};
+shapeButtonEllipse.onclick = () => {
+  shape = "ellipse";
 };
 function draw(context, x1, y1, x2, y2, color) {
   context.beginPath();
@@ -44,6 +48,31 @@ function drawRect(context, x, y, w, h, color) {
   context.strokeRect(x, y, w, h);
   context.closePath();
 }
+function drawEllipse(context, x1, y1, x2, y2, color) {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  let radiusX = (x2 - x1) / 2;
+  let radiusY = (y2 - y1) / 2;
+  let centerX = x1 + radiusX;
+  let centerY = y1 + radiusY;
+  let step = 0.01;
+  let totalAngle = Math.PI * 2 - step;
+  context.beginPath();
+  context.lineWidth = 3;
+  context.moveTo(
+    centerX + radiusX * Math.cos(0),
+    centerY + radiusY * Math.sin(0)
+  );
+  for (let i = step; i < totalAngle; i += step) {
+    context.lineTo(
+      centerX + radiusX * Math.cos(i),
+      centerY + radiusY * Math.sin(i)
+    );
+  }
+  context.closePath();
+  context.strokeStyle = color;
+  context.stroke();
+}
+
 canvas.addEventListener("mousedown", (e) => {
   x = e.offsetX;
   y = e.offsetY;
@@ -56,8 +85,10 @@ canvas.addEventListener("mousemove", (e) => {
       draw(ctx, x, y, e.offsetX, e.offsetY, color);
       x = e.offsetX;
       y = e.offsetY;
-    } else {
+    } else if (shape === "rectangle") {
       drawRect(ctx, x, y, e.offsetX - x, e.offsetY - y, color);
+    } else {
+      drawEllipse(ctx, x, y, e.offsetX, e.offsetY, color);
     }
   }
 });
@@ -69,8 +100,14 @@ window.addEventListener("mouseup", (e) => {
       x = 0;
       y = 0;
       Drawing = false;
-    } else {
+    } else if (shape === "rectangle") {
       drawRect(ctx, x, y, e.offsetX - x, e.offsetY - y, color);
+      x = 0;
+      y = 0;
+      Drawing = false;
+      shape = false;
+    } else {
+      drawEllipse(ctx, x, y, e.offsetX, e.offsetY, color);
       x = 0;
       y = 0;
       Drawing = false;

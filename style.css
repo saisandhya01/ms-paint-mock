@@ -10,4 +10,10 @@ canvas {
   top: 30%;
   right: 10%;
   border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.buttons > * {
+  margin: 10px;
 }

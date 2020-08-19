@@ -9,14 +9,19 @@
 </head>
 
 <body>
-    <canvas id="canvas">
-        Oops,your browser doesn't support the application
-    </canvas>
-    <div class="buttons">
-        <button id="erase-button">ERASE</button>
-        <label for="color">Choose your color:</label>
-        <input type="color" id="color" name="color">
-        <button id="rectangle">Rectangle</button>
+    <div class="main">
+        <canvas id="canvas">
+            Oops,your browser doesn't support the application
+        </canvas>
+        <div class="buttons">
+            <button id="erase-button">ERASE</button>
+            <div class="color-container">
+                <label for="color">Choose your color:</label>
+                <input type="color" id="color" name="color">
+            </div>
+            <button id="rectangle">Rectangle</button>
+            <button id="ellipse">Ellipse</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
