@@ -4,6 +4,7 @@
 }
 canvas {
   border: 1px solid black;
+  background: skyblue;
 }
 .buttons {
   position: absolute;
