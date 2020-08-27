@@ -40,12 +40,20 @@ function draw(context, x1, y1, x2, y2, color) {
   context.stroke();
   context.closePath();
 }
+let last_w = 0,
+  last_h = 0,
+  last_x = 0,
+  last_y = 0;
 function drawRect(context, x, y, w, h, color) {
-  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.clearRect(last_x, last_y, last_w, last_h);
   context.beginPath();
   context.lineWidth = 10;
   context.strokeStyle = color;
   context.strokeRect(x, y, w, h);
+  last_h = h;
+  last_w = w;
+  last_x = x;
+  last_y = y;
   context.closePath();
 }
 function drawEllipse(context, x1, y1, x2, y2, color) {
